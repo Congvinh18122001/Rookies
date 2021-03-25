@@ -1,0 +1,40 @@
+@model FirstAppMVC.Models.Member;
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@Html.ActionLink("List", "List", "Members")
+
+</hr>
+
+@using(Html.BeginForm("Edit","Members",FormMethod.Post)){
+  <div class="form-group">
+    <label asp-for="Name">Name:</label>
+    <input type="text" value="@Model.Name" asp-for="Name" class="form-control" id="Name" required>
+  </div>
+  <div class="form-group">
+    <label asp-for="Gender">Gender:</label>
+    <select asp-for="Gender" class="form-control" id="Gender">
+      <option   value="Male" >Male</option>
+      <option value="Female" >Female</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label asp-for="Birthday">Birthday:</label>
+    <input type="date" asp-for="Birthday" value="@Model.Birthday"  class="form-control" id="Birthday" required>
+  </div>
+  <div class="form-group">
+    <label asp-for="Phone">Phone:</label>
+    <input type="text" asp-for="Phone" value="@Model.Phone" class="form-control" id="Phone" required>
+  </div>
+  <div class="form-group">
+    <label asp-for="Email">Email address:</label>
+    <input type="email" asp-for="Email" value="@Model.Email" class="form-control" id="Email" required>
+  </div>
+  <div class="form-group">
+    <label asp-for="BirthPlace">BirthPlace:</label>
+    <input type="text" asp-for="BirthPlace" value="@Model.BirthPlace" class="form-control" id="BirthPlace" required>
+  </div>
+    <input type="text" name="index" value="@(ViewBag.Index)" class="form-control" hidden>
+  <button type="submit" class="btn btn-primary">Submit</button>
+}

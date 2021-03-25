@@ -1,0 +1,18 @@
+@model FirstAppMVC.Models.User
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+
+@using(Html.BeginForm("Login","Home",FormMethod.Post)) {
+  <div class="form-group">
+    <label asp-for="Username">Username:</label>
+    <input type="text" class="asp-form-control" asp-for="Username">
+  </div>
+  <div class="asp-form-group">
+    <label asp-for="Password">Password:</label>
+    <input type="password" class="asp-form-control" asp-for="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+}

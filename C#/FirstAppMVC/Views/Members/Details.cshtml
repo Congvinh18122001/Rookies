@@ -1,0 +1,13 @@
+@model FirstAppMVC.Models.Member;
+
+@{
+    ViewData["Title"] = "Detais";
+}
+
+@Html.ActionLink("List", "List", "Members")
+</hr>
+<h1>Name : @Model.Name</h1>
+<h1>Gender : @Model.Gender</h1>
+<h1>Birthday : @Model.Birthday</h1>
+<h1>Phone : @Model.Phone</h1>
+<h1>Email : @Model.Email</h1>

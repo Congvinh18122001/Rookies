@@ -1,0 +1,20 @@
+@model FirstAppMVC.Models.Member
+@{
+    ViewData["Title"] = "Delete";
+}
+
+</hr>
+
+@Html.ActionLink("List", "List", "Members")
+</hr>
+<h3>Name : @Model.Name</h3>
+<h3>Gender : @Model.Gender</h3>
+<h3>Birthday : @Model.Birthday</h3>
+<h3>Phone : @Model.Phone</h3>
+<h3>Email : @Model.Email</h3>
+
+@using(Html.BeginForm("DeleteMember","Members",FormMethod.Post)) {
+
+    <input name="i" id="i" value="@(ViewBag.IndexDelete)" hidden="true" />
+    <input type="submit" class="btn btn-primary" value="Delete"/>
+}
