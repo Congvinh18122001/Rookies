@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http;
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,15 +26,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="List">List</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LoginForm">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>
-                        @* @if (HttpContext.Session.GetString("Username")!=null)
+                         @* @if (HttpContext.Session.GetString("Username")!=null)
                         {
                         
-                        } *@
+                        }  *@
                     </ul>
                 </div>
             </div>

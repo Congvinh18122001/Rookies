@@ -9,6 +9,16 @@ namespace FirstAppMVC.Controllers
     public class MembersController : Controller
     {
         private  IMembersRepository resp = new MembersRepository();
+
+        public IActionResult Search(string SearchString)
+        {
+            if (String.IsNullOrEmpty(SearchString))
+            {
+                return RedirectToAction("List");
+            }
+            return View("List",resp.GetMembersByName(SearchString));
+        }
+
         [Authorize("Admin")]
         public IActionResult Create(){
             return View();

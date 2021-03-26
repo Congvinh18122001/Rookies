@@ -11,5 +11,6 @@ namespace FirstAppMVC.Models
         void AddMember(Member member);
         void DeleteMember(int index);
         Member UpdateMember(int index, Member member);
+        List<Member> GetMembersByName(string searchString);
     }
 }

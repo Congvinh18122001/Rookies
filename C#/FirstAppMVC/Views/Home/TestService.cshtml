@@ -1,0 +1,11 @@
+@inject FirstAppMVC.Services.ITestService userService
+
+@{
+    ViewData["Title"] = "TestService";
+}
+
+
+@foreach (var item in userService.ReturnListString())
+{
+    <h1>@item</h1>
+}

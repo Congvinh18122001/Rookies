@@ -93,6 +93,10 @@ namespace FirstAppMVC.Controllers
             }
             return null;
         }
-        
+        public IActionResult TestService()
+        {
+            
+            return View();
+        }
     }
 }

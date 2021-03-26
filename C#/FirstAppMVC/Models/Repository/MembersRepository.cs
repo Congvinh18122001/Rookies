@@ -14,7 +14,13 @@ namespace FirstAppMVC.Models
             ,new Member() { Name="Truong Cong Tu",Phone="0123654789",Birthday="18/12/1998",Gender="Male",Email="asd4@gmail.com",BirthPlace="Ha Noi"}
             ,new Member() { Name="Truong Cong Duc",Phone="0123654789",Birthday="18/12/2000",Gender="Male",Email="asd5@gmail.com",BirthPlace="Ha Nam"}
             };
-        
+        public List<Member> GetMembersByName(string searchString){
+              if (String.IsNullOrEmpty(searchString))
+              {
+                  return members;
+              }
+              return members.Where(p=>p.Name.Contains(searchString)).ToList();
+        }
         public void DeleteMember(int index){
             if (CheckIndexIsValid(index))
             {
