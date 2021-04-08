@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "Vinh18",
+      "password": "scotl2001"
+    },
+    {
+      "username": "phutho",
+      "password": "123",
+      "id": 3
+    }
+  ],
+  "product": [
+    {
+      "id": 1,
+      "name": "banana",
+      "supplier": "kkk",
+      "price": 123,
+      "quantity": 2
+    },
+    {
+      "name": "cccccc",
+      "supplier": "123",
+      "price": "50",
+      "quantity": "12",
+      "id": 2
+    },
+    {
+      "name": "cccccc",
+      "supplier": "123",
+      "price": "50",
+      "quantity": "12",
+      "id": 3
+    },
+    {
+      "name": "cccccc",
+      "supplier": "123",
+      "price": "50",
+      "quantity": "12",
+      "id": 4
+    },
+    {
+      "name": "um ba la ra em gái",
+      "supplier": "123",
+      "price": "100000000",
+      "quantity": "12",
+      "id": 5
+    }
+  ]
+}
