@@ -1,0 +1,96 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "Vinh18",
+      "password": "scotl2001"
+    },
+    {
+      "username": "phutho",
+      "password": "123",
+      "id": 3
+    },
+    {
+      "username": "Dung",
+      "password": "123",
+      "id": 4
+    }
+  ],
+  "product": [
+    {
+      "name": "error",
+      "supplier": "error",
+      "price": "120",
+      "quantity": "0",
+      "id": 1
+    },
+    {
+      "name": "cccccc",
+      "supplier": "123",
+      "price": "50",
+      "quantity": "12",
+      "id": 2
+    },
+    {
+      "name": "cccccc",
+      "supplier": "123",
+      "price": "50",
+      "quantity": "12",
+      "id": 3
+    },
+    {
+      "name": "cccccc",
+      "supplier": "123",
+      "price": "50",
+      "quantity": "12",
+      "id": 4
+    },
+    {
+      "name": "um ba la ra em gái",
+      "supplier": "123",
+      "price": "100000000",
+      "quantity": "12",
+      "id": 5
+    },
+    {
+      "name": "error6",
+      "supplier": "error6",
+      "price": "66",
+      "quantity": "6",
+      "id": 6
+    },
+    {
+      "name": "error",
+      "supplier": "error",
+      "price": "error",
+      "quantity": "0",
+      "id": 7
+    },
+    {
+      "name": "error",
+      "supplier": "error",
+      "price": "555",
+      "quantity": "5",
+      "id": 8
+    },
+    {
+      "name": "error",
+      "supplier": "error",
+      "price": "error",
+      "quantity": "0",
+      "id": 9
+    },
+    {
+      "name": "error",
+      "supplier": "error",
+      "price": "error",
+      "quantity": "0",
+      "id": 10
+    }
+  ]
+}
