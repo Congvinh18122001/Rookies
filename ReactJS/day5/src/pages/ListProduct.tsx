@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import {
   Link,
+  Redirect,
   useParams,
 } from "react-router-dom";
 
@@ -13,6 +14,8 @@ export interface IProduct {
   price: string;
   quantity: number;
 }
+
+//List
 export function ListProduct() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -68,8 +71,9 @@ export function ListProduct() {
     </div>
   );
 }
-
+//Detail
 export function Detail() {
+  const [isDelete,setIsDelete] = useState(false);
   let {productId} = useParams<any>();
   const [product, setProduct] = useState({
     id: 0,
@@ -90,10 +94,19 @@ export function Detail() {
         .catch((err) => setError(err));
     })();
   }, []);
+
+  const handleDelete = (id: number) =>{
+    axios
+        .delete("http://localhost:5000/product/"+productId)
+        .then((res) => {
+          (res.status===200)?setIsDelete(true):alert("Delete false");
+        })
+  }
   return (
   <>
+  {isDelete&&<Redirect to="/listProduct"/>}
   {error?<p>
-    Something went wrong!
+    Error
     </p>:<div>
     <h3>
      productName : {product.name} <br/>
@@ -102,6 +115,7 @@ export function Detail() {
      Price : {product.price} <br/>
     </h3>
     <Link className="btn btn-primary" to={`/Edit/${productId}`}>Edit</Link>
+    <button onClick={()=>handleDelete(product.id)} className="btn btn-danger">Delete</button>
     </div>
     }
   </>

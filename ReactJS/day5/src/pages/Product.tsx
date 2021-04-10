@@ -3,6 +3,9 @@ import axios from "axios";
 import { Redirect, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
+
+//Create
 export interface IProduct {
   id: number;
   name: string;
@@ -13,16 +16,26 @@ export interface IProduct {
 
 export const AddProduct = () => {
   const { register, handleSubmit } = useForm();
-
+  const [checkAdd,setCheckAdd] = useState(false);
+  const [productId,setProductId] = useState();
   const onSubmit = (data: IProduct) => {
     axios.post("http://localhost:5000/product", {
       name: data.name,
       supplier: data.supplier,
       price: data.price,
       quantity: data.quantity,
+    }).then((res)=>{
+         if(res.status===201){
+          setCheckAdd(true);
+          setProductId(res.data.id);
+          console.log(productId);
+          
+          }else alert("Add product Fails");
     });
   };
   return (
+    <>
+    {checkAdd&&<Redirect to={`/Detail/${productId}`}/>}
     <div className="container p-3">
       <div>AddProduct</div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,8 +80,12 @@ export const AddProduct = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
+
+
+///Edit
 export const EditProduct = () => {
   const [error, setError] = useState(null);
   const [checkSave , setCheckSave] = useState(false);
