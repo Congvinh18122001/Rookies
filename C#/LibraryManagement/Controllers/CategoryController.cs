@@ -22,6 +22,8 @@ namespace LibraryManagement.Controllers
             _loginService = loginService;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult<List<Category>> Get()
         {
             return Ok(_repo.ListAll());
@@ -37,7 +39,7 @@ namespace LibraryManagement.Controllers
             }
             return NotFound();
         }
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult<Category> Post(Category category)
         {

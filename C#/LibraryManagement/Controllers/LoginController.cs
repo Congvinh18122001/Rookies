@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 namespace LibraryManagement.Controllers
 {
-    [Route("api/Login")]
+    [Route("api/login")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -37,12 +37,6 @@ namespace LibraryManagement.Controllers
         public IActionResult Unauthorize()
         {
             return Unauthorized();
-        }
-
-        [Route("/accessDenied")]
-        public IActionResult AccessDenied()
-        {
-            return StatusCode(403);
         }
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] User user)
@@ -77,6 +71,14 @@ namespace LibraryManagement.Controllers
             return NotFound("Username or Password is incorrect !");
         }
 
+        [HttpPost]
+        [Route("/api/logout")]
+        public async System.Threading.Tasks.Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
+        }
         // [HttpPut("{id}")]
         // public void Put(int id, [FromBody] string value)
         // {

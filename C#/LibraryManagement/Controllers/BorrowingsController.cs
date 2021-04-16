@@ -30,7 +30,7 @@ namespace LibraryManagement.Controllers
             }
             return NoContent();
         }
-        [HttpGet("GetByUser/{userId}")]
+        [HttpGet("User/{userId}")]
         public ActionResult<List<BorrowingRequest>> GetByUser(int userId)
         {
             List<BorrowingRequest> list = _repo.ListAll().Where(r => r.UserID==userId).ToList();

@@ -71,8 +71,6 @@ namespace LibraryManagement
            .AddCookie(options =>
            {
                options.LoginPath = "/loginFail";
-
-               options.AccessDeniedPath = "/accessDenied";
            });
 
             services.AddAuthentication(options =>
