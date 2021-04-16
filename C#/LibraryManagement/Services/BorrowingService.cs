@@ -73,10 +73,6 @@ namespace LibraryManagement.Models
             List<RequestDetail> list = _requestDetail.ListAll()
             .Where(p => p.RequestID == RequestID)
             .ToList();
-            foreach (var item in list)
-            {
-                item.BorrowingRequest = null;
-            }
             return list;
         }
         bool CheckRequest(int UserID)

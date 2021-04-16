@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Models
 {
@@ -14,14 +15,14 @@ namespace LibraryManagement.Models
             _repo = repo;
         }
 
-        public User Login(string username, string password)
+        public  User Login(string username, string password)
         {
             if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
                 return null;
             }
-            return _repo.ListAll()
-            .SingleOrDefault(u => u.Username == username && u.Password == password);
+            User user = _repo.ListAll().SingleOrDefault(u => u.Username == username && u.Password == password);
+            return user;
         }
     }
 }

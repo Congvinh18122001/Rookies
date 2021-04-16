@@ -61,3 +61,8 @@ D:\RookiesActive\C#\LibraryManagement\obj\Debug\net5.0\LibraryManagement.pdb
 D:\RookiesActive\C#\LibraryManagement\obj\Debug\net5.0\LibraryManagement.genruntimeconfig.cache
 D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\LibraryManagement.xml
 D:\RookiesActive\C#\LibraryManagement\obj\Debug\net5.0\LibraryManagement.xml
+D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Castle.Core.dll
+D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

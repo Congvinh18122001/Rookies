@@ -22,13 +22,7 @@ namespace LibraryManagement.Controllers
         [HttpGet]
         public ActionResult<List<BorrowingRequest>> Get()
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             List<BorrowingRequest> list = _repo.ListAll().ToList();
             if (list.Count() > 0)
             {
@@ -36,17 +30,10 @@ namespace LibraryManagement.Controllers
             }
             return NoContent();
         }
-        [HttpGet("GetByUser")]
-        public ActionResult<List<BorrowingRequest>> GetByUser()
+        [HttpGet("GetByUser/{userId}")]
+        public ActionResult<List<BorrowingRequest>> GetByUser(int userId)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-            List<BorrowingRequest> list = _repo.ListAll().Where(r => r.UserID==user.ID).ToList();
+            List<BorrowingRequest> list = _repo.ListAll().Where(r => r.UserID==userId).ToList();
             if (list.Count() > 0)
             {
                 return Ok(list);
@@ -57,13 +44,7 @@ namespace LibraryManagement.Controllers
         [HttpGet("{id}")]
         public ActionResult<BorrowingRequest> Get(int? id)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             BorrowingRequest borrowingRequest = _service.GetByID(id.Value);
             if (borrowingRequest != null)
             {
@@ -75,13 +56,6 @@ namespace LibraryManagement.Controllers
         [HttpPost("api/Borrowings/RequestBook")]
         public ActionResult Post([FromBody] Borrowing borrowing)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null)
-            {
-                return Unauthorized("You must login to request book !");
-            }
 
             if (borrowing == null)
             {
@@ -98,13 +72,7 @@ namespace LibraryManagement.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, BorrowingRequest request)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             if (id != request.ID)
             {
                 return BadRequest("");

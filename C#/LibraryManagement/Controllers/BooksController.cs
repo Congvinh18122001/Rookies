@@ -21,7 +21,7 @@ namespace LibraryManagement.Controllers
             _service = service;
             _loginService = loginService;
         }
-        [HttpGet("/")]
+        [HttpGet]
         public ActionResult<List<Book>> Get()
         {
             return Ok(_repo.ListAll().OrderByDescending(x => x.CreatedAt));
@@ -51,13 +51,7 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public ActionResult<Book> Post(Book book)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+   
             if (book != null)
             {
                 book.CreatedAt = DateTime.Now;
@@ -70,13 +64,7 @@ namespace LibraryManagement.Controllers
         [HttpPut]
         public ActionResult<Book> Put(Book book)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             book = _service.Update(book);
 
             if (book == null)
@@ -90,13 +78,7 @@ namespace LibraryManagement.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             if (_service.Delete(id))
             {
                 return Ok();

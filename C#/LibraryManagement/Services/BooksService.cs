@@ -39,10 +39,6 @@ namespace LibraryManagement.Models
             if (CheckCategory(id))
             {
                 IEnumerable<Book> books = _repo.ListAll().Where(b=>b.CategoryID==id).OrderByDescending(b=>b.CreatedAt);
-                foreach (var item in books)
-                {
-                    item.Category = null;
-                }
                 return books;
             }
             return null;

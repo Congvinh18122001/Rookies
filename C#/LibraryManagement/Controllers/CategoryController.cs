@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 namespace LibraryManagement.Controllers
 {
     [Route("api/Category")]
@@ -35,16 +37,11 @@ namespace LibraryManagement.Controllers
             }
             return NotFound();
         }
+        // [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult<Category> Post(Category category)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             if (category != null)
             {
                 category.CreatedAt = DateTime.Now;
@@ -57,13 +54,7 @@ namespace LibraryManagement.Controllers
         [HttpPut]
         public ActionResult<Category> Put(Category category)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized();
-            }
+
             category = _categoryService.Update(category);
             if (category != null)
             {
@@ -74,13 +65,6 @@ namespace LibraryManagement.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            string username = Request.Headers["username"].ToString();
-            string password = Request.Headers["password"].ToString();
-            User user = _loginService.Login(username, password);
-            if (user == null || user.RoleID != 1)
-            {
-                return Unauthorized ();
-            }
             if (_categoryService.Delete(id))
             {
                 return Ok();
