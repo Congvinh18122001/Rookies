@@ -21,9 +21,13 @@ namespace LibraryManagement.Models
         }
         public Category Update(Category category) {
             Category getCategory = GetById(category.ID);
-            getCategory.Name = category.Name;
-            _dbContext.SaveChanges();
-            return getCategory;
+            if (getCategory!=null)
+            {
+                getCategory.Name = category.Name;
+                _dbContext.SaveChanges();
+                return getCategory;
+            }
+            return null;
         }
 
         public void Remove(Category category) {

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using LibraryManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 namespace LibraryManagement.Controllers
 {
     [Route("api/Books")]
@@ -27,18 +29,18 @@ namespace LibraryManagement.Controllers
             return Ok(_repo.ListAll().OrderByDescending(x => x.CreatedAt));
         }
         [HttpGet("/GetByCategory/{id}")]
-        public ActionResult<List<Book>> GetByCategory( int id)
+        public ActionResult<List<Book>> GetByCategory(int id)
         {
             List<Book> books = _service.GetBooksByCategory(id).ToList();
-            if (books != null && books.Count >0)
+            if (books != null && books.Count > 0)
             {
                 return Ok(books);
             }
-            return NotFound();
+            return NoContent();
         }
         [HttpGet("{id}")]
         public ActionResult<Book> Get(int id)
-        
+
         {
             Book book = _repo.GetById(id);
             if (book != null)
@@ -47,13 +49,18 @@ namespace LibraryManagement.Controllers
             }
             return NotFound();
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult<Book> Post(Book book)
+        public ActionResult<Book> Post(BookVM bookCreateRequest)
         {
-   
-            if (book != null)
+
+            if (bookCreateRequest != null)
             {
+                Book book = new Book();
+                book.Name = bookCreateRequest.Name;
+                book.Author = bookCreateRequest.Author;
+                book.CategoryID = bookCreateRequest.CategoryID;
                 book.CreatedAt = DateTime.Now;
                 book = _repo.Add(book);
                 return CreatedAtAction(nameof(Get), new { id = book.ID }, book);
@@ -61,12 +68,18 @@ namespace LibraryManagement.Controllers
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
-        public ActionResult<Book> Put(Book book)
+        public ActionResult<Book> Put(BookVM bookEditRequest)
         {
-
+            Book  book = new Book
+            {
+                ID = bookEditRequest.ID,
+                Name=bookEditRequest.Name,
+                Author=bookEditRequest.Author,
+                CategoryID=bookEditRequest.CategoryID
+            };
             book = _service.Update(book);
-
             if (book == null)
             {
                 return NotFound();
@@ -75,6 +88,7 @@ namespace LibraryManagement.Controllers
             return Ok(book);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

@@ -13,25 +13,14 @@ namespace LibraryManagement.Models
         {
             _repo = repo;
         }
+       public bool Delete(int id){
 
-       public Category Update(Category category){
-           Category getCategory = _repo.GetById(category.ID);
-           if (getCategory != null)
-           {
-               return _repo.Update(category);
-           }
-           return null;
-       }
-       public bool Delete(int? id){
-           if (id.HasValue)
-           {
-               Category category = _repo.GetById(id.Value);
+               Category category = _repo.GetById(id);
                if (category != null)
                {
                    _repo.Remove(category);
                    return true;
                }
-           }
            return false;
        }
     }

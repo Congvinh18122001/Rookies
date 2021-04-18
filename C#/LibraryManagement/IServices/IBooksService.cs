@@ -7,7 +7,7 @@ namespace LibraryManagement.Models
     public interface IBooksService
     {
         Book Update(Book book);
-        bool Delete(int? id);
+        bool Delete(int id);
         IEnumerable<Book> GetBooksByCategory(int id);
     }
 }

@@ -16,7 +16,7 @@ namespace LibraryManagement.Models
             _request = request;
             _user = user;
         }
-        public bool UpdateStatus(BorrowingRequest request){
+        public bool UpdateRequestStatus(BorrowingRequest request){
             if (request.ID!=0 && request.Status >= 0 && request.Status <=2)
             {
                 BorrowingRequest borrowingRequest = _request.GetById(request.ID);
@@ -31,12 +31,8 @@ namespace LibraryManagement.Models
         }
         public bool PostRequest(Borrowing borrowing)
         {
-            if (borrowing.Books.Count <= 5 && borrowing.Books.Count > 0 && borrowing.UserID > 0)
+            if (CheckBorrowRequestValid(borrowing.UserID)&&borrowing.Books.Count <= 5 && borrowing.Books.Count > 0 && borrowing.UserID > 0)
             {
-                if (!CheckRequest(borrowing.UserID))
-                {
-                    return false;
-                }
                 BorrowingRequest borrowingRequest = AddBorrowingRequest(borrowing.UserID);
                 foreach (var book in borrowing.Books)
                 {
@@ -75,7 +71,7 @@ namespace LibraryManagement.Models
             .ToList();
             return list;
         }
-        bool CheckRequest(int UserID)
+        bool CheckBorrowRequestValid(int UserID)
         {
             List<BorrowingRequest> requests = _request.ListAll()
             .Where(p => p.UserID == UserID && p.RequestAt.Year == DateTime.Now.Year && p.RequestAt.Month == DateTime.Now.Month)

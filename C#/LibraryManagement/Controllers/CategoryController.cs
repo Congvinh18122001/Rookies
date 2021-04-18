@@ -22,8 +22,6 @@ namespace LibraryManagement.Controllers
             _loginService = loginService;
         }
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-
         public ActionResult<List<Category>> Get()
         {
             return Ok(_repo.ListAll());
@@ -41,29 +39,56 @@ namespace LibraryManagement.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult<Category> Post(Category category)
+        public ActionResult<Category> Post(CategoryVM categoryCreateRequest)
         {
 
-            if (category != null)
+            if (categoryCreateRequest != null)
             {
-                category.CreatedAt = DateTime.Now;
+                Category checkExist = _repo.ListAll().FirstOrDefault(p => p.Name == categoryCreateRequest.Name);
+                if (checkExist != null)
+                {
+                    return NoContent();
+                }
+                Category category = new Category
+                {
+                    CreatedAt = DateTime.Now,
+                    Name = categoryCreateRequest.Name
+
+                };
                 category = _repo.Add(category);
                 return CreatedAtAction(nameof(Get), new { id = category.ID }, category);
             }
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
-        public ActionResult<Category> Put(Category category)
+        public ActionResult<Category> Put(CategoryVM categoryEditRequest)
         {
-
-            category = _categoryService.Update(category);
-            if (category != null)
+            Category category = new Category
             {
-                return Ok(category);
+                ID = categoryEditRequest.ID,
+                Name = categoryEditRequest.Name
+            };
+            try
+            {
+                category = _repo.Update(category);
+                if (category != null)
+                {
+                    return Ok(category);
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            return BadRequest();
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
+        
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

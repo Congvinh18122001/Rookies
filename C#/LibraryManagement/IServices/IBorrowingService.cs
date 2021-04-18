@@ -8,6 +8,6 @@ namespace LibraryManagement.Models
     {
         bool PostRequest(Borrowing borrowing);
         BorrowingRequest  GetByID(int id);
-        bool UpdateStatus(BorrowingRequest request);
+        bool UpdateRequestStatus(BorrowingRequest request);
     }
 }

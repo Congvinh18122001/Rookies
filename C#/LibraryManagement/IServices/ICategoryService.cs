@@ -6,7 +6,6 @@ namespace LibraryManagement.Models
 {
     public interface ICategoryService
     {
-       Category Update(Category category);
-       bool Delete(int? id);
+       bool Delete(int id);
     }
 }
