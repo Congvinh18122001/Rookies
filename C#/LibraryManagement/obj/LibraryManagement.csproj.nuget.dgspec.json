@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {}
+    "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {}
   },
   "projects": {
-    "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {
+    "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
+        "projectUniqueName": "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
         "projectName": "LibraryManagement",
-        "projectPath": "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
+        "projectPath": "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\RookiesActive\\C#\\LibraryManagement\\obj\\",
+        "outputPath": "d:\\RookiesActive\\C#\\LibraryManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -30,11 +30,9 @@ namespace LibraryManagement.Controllers
         public ActionResult<List<Book>> GetByCategory(int id)
         {
             List<Book> books = _service.GetBooksByCategory(id).ToList();
-            if (books != null && books.Count > 0)
-            {
-                return Ok(books);
-            }
-            return NoContent();
+
+            return Ok(books);
+
         }
         [HttpGet("{id}")]
         public ActionResult<Book> Get(int id)

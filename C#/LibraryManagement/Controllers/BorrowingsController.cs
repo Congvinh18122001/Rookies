@@ -25,11 +25,9 @@ namespace LibraryManagement.Controllers
         public ActionResult<List<BorrowingRequest>> Get()
         {
             List<BorrowingRequest> list = _repo.ListAll().ToList();
-            if (list.Count() > 0)
-            {
-                return Ok(list);
-            }
-            return NoContent();
+
+            return Ok(list);
+
         }
 
         [Authorize(Roles = "User")]
