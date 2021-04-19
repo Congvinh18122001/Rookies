@@ -16,13 +16,14 @@ namespace LibraryManagement.Models
             _request = request;
             _user = user;
         }
-        public bool UpdateRequestStatus(BorrowingRequest request){
-            if (request.ID!=0 && request.Status >= 0 && request.Status <=2)
+        public bool UpdateRequestStatus(Borrowing request)
+        {
+            if (request.ID != 0 && request.Status >= (StatusRequest)0 && request.Status <= (StatusRequest)2)
             {
                 BorrowingRequest borrowingRequest = _request.GetById(request.ID);
-                if (borrowingRequest!=null)
+                if (borrowingRequest != null)
                 {
-                    borrowingRequest.Status = request.Status;
+                    borrowingRequest.Status = (int)request.Status;
                     _request.Update(borrowingRequest);
                     return true;
                 }
@@ -31,12 +32,13 @@ namespace LibraryManagement.Models
         }
         public bool PostRequest(Borrowing borrowing)
         {
-            if (CheckBorrowRequestValid(borrowing.UserID)&&borrowing.Books.Count <= 5 && borrowing.Books.Count > 0 && borrowing.UserID > 0)
+            bool isRequestValid = CheckBorrowRequestValid(borrowing.UserID);
+            if (isRequestValid && borrowing.ListBookID.Count <= 5 && borrowing.ListBookID.Count > 0 && borrowing.UserID > 0)
             {
                 BorrowingRequest borrowingRequest = AddBorrowingRequest(borrowing.UserID);
-                foreach (var book in borrowing.Books)
+                foreach (var bookID in borrowing.ListBookID)
                 {
-                    AddRequestDetail(book.ID, borrowingRequest.ID);
+                    AddRequestDetail(bookID, borrowingRequest.ID);
                 }
                 return true;
             }

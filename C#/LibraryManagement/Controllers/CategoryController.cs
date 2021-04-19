@@ -12,14 +12,12 @@ namespace LibraryManagement.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ILoginService _loginService;
         private readonly ICategoryService _categoryService;
         private readonly ICategoryRepository _repo;
-        public CategoryController(ICategoryService categoryService, ICategoryRepository repo, ILoginService loginService)
+        public CategoryController(ICategoryService categoryService, ICategoryRepository repo)
         {
             _repo = repo;
             _categoryService = categoryService;
-            _loginService = loginService;
         }
         [HttpGet]
         public ActionResult<List<Category>> Get()
@@ -42,29 +40,42 @@ namespace LibraryManagement.Controllers
         public ActionResult<Category> Post(CategoryVM categoryCreateRequest)
         {
 
-            if (categoryCreateRequest != null)
+            if (categoryCreateRequest == null)
             {
-                Category checkExist = _repo.ListAll().FirstOrDefault(p => p.Name == categoryCreateRequest.Name);
-                if (checkExist != null)
-                {
-                    return NoContent();
-                }
-                Category category = new Category
-                {
-                    CreatedAt = DateTime.Now,
-                    Name = categoryCreateRequest.Name
-
-                };
-                category = _repo.Add(category);
-                return CreatedAtAction(nameof(Get), new { id = category.ID }, category);
+                return BadRequest();
             }
-            return BadRequest();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Validation Error !");
+            }
+            Category checkExist = _repo.ListAll().FirstOrDefault(p => p.Name == categoryCreateRequest.Name);
+            if (checkExist != null)
+            {
+                return NoContent();
+            }
+            Category category = new Category
+            {
+                CreatedAt = DateTime.Now,
+                Name = categoryCreateRequest.Name
+
+            };
+            category = _repo.Add(category);
+            return CreatedAtAction(nameof(Get), new { id = category.ID }, category);
+
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
         public ActionResult<Category> Put(CategoryVM categoryEditRequest)
         {
+            if (categoryEditRequest == null)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Validation Error !");
+            }
             Category category = new Category
             {
                 ID = categoryEditRequest.ID,
@@ -87,7 +98,7 @@ namespace LibraryManagement.Controllers
                 return BadRequest();
             }
         }
-        
+
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)

@@ -70,7 +70,7 @@ namespace LibraryManagement
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
            .AddCookie(options =>
            {
-               options.LoginPath = "/loginFail";
+               options.LoginPath = "/login";
            });
 
             services.AddAuthentication(options =>

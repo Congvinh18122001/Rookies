@@ -12,14 +12,12 @@ namespace LibraryManagement.Controllers
     [ApiController]
     public class BorrowingsController : ControllerBase
     {
-        private readonly ILoginService _loginService;
         private readonly IRequestRepository _repo;
         private readonly IBorrowingService _service;
-        public BorrowingsController(IBorrowingService service, IRequestRepository repo, ILoginService loginService)
+        public BorrowingsController(IBorrowingService service, IRequestRepository repo)
         {
             _service = service;
             _repo = repo;
-            _loginService = loginService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -65,25 +63,41 @@ namespace LibraryManagement.Controllers
             {
                 return BadRequest("Borrow request is empty !");
             }
-            bool isRequestSuccess = _service.PostRequest(borrowing);
-            if (isRequestSuccess)
+            try
             {
-                return Ok();
+
+                bool isRequestSuccess = _service.PostRequest(borrowing);
+                if (isRequestSuccess)
+                {
+                    return Ok();
+                }
+                return BadRequest("Over licensing limits in this month !!");
             }
-            return BadRequest("Over licensing limits in this month !!");
+            catch (Exception)
+            {
+                return BadRequest("Request Fails !");
+            }
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public ActionResult Put(BorrowingRequest request)
+        public ActionResult Put(Borrowing requestUpdate)
         {
 
-            bool checkExist = _service.UpdateRequestStatus(request);
-            if (checkExist)
+            try
             {
-                return Ok();
+                bool isUpdateSuccess = _service.UpdateRequestStatus(requestUpdate);
+                if (isUpdateSuccess)
+                {
+                    return Ok();
+                }
+                return BadRequest();
             }
-            return BadRequest();
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
     }
 }

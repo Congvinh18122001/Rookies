@@ -14,14 +14,12 @@ namespace LibraryManagement.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly ILoginService _loginService;
         private readonly IBooksService _service;
         private readonly IBooksRepository _repo;
-        public BooksController(IBooksService service, IBooksRepository repo, ILoginService loginService)
+        public BooksController(IBooksService service, IBooksRepository repo)
         {
             _repo = repo;
             _service = service;
-            _loginService = loginService;
         }
         [HttpGet]
         public ActionResult<List<Book>> Get()
@@ -49,35 +47,48 @@ namespace LibraryManagement.Controllers
             }
             return NotFound();
         }
-        
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult<Book> Post(BookVM bookCreateRequest)
         {
 
-            if (bookCreateRequest != null)
+            if (bookCreateRequest == null)
             {
-                Book book = new Book();
-                book.Name = bookCreateRequest.Name;
-                book.Author = bookCreateRequest.Author;
-                book.CategoryID = bookCreateRequest.CategoryID;
-                book.CreatedAt = DateTime.Now;
-                book = _repo.Add(book);
-                return CreatedAtAction(nameof(Get), new { id = book.ID }, book);
+                return BadRequest("Request is not valid !");
             }
-            return BadRequest();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Validation Error !");
+            }
+            Book book = new Book();
+            book.Name = bookCreateRequest.Name;
+            book.Author = bookCreateRequest.Author;
+            book.CategoryID = bookCreateRequest.CategoryID;
+            book.CreatedAt = DateTime.Now;
+            book = _repo.Add(book);
+            return CreatedAtAction(nameof(Get), new { id = book.ID }, book);
+
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
         public ActionResult<Book> Put(BookVM bookEditRequest)
         {
-            Book  book = new Book
+            if (bookEditRequest == null)
+            {
+                return BadRequest("Request is not valid !");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Validation Error !");
+            }
+            Book book = new Book
             {
                 ID = bookEditRequest.ID,
-                Name=bookEditRequest.Name,
-                Author=bookEditRequest.Author,
-                CategoryID=bookEditRequest.CategoryID
+                Name = bookEditRequest.Name,
+                Author = bookEditRequest.Author,
+                CategoryID = bookEditRequest.CategoryID
             };
             book = _service.Update(book);
             if (book == null)
@@ -93,7 +104,8 @@ namespace LibraryManagement.Controllers
         public ActionResult Delete(int id)
         {
 
-            if (_service.Delete(id))
+            bool isDeleteSuccess = _service.Delete(id);
+            if (isDeleteSuccess)
             {
                 return Ok();
             }

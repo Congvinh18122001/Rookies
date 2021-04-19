@@ -22,51 +22,52 @@ namespace LibraryManagement.Controllers
         {
             _service = service;
         }
-        // [HttpGet]
-        // public ActionResult<IEnumerable<string>> Get()
-        // {
-        //     return new string[] { "value1", "value2" };
-        // }
 
-        // [HttpGet("{id}")]
-        // public ActionResult<string> Get(int id)
-        // {
-        //     return "value";
-        // }
         [Route("/loginFail")]
         public IActionResult Unauthorize()
         {
             return Unauthorized();
         }
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] User user)
+        public async Task<ActionResult> Post([FromBody] AccountVM userLoginRequest)
         {
-            user = _service.Login(user.Username, user.Password);
-            if (user != null)
+            if (userLoginRequest == null)
+            {
+                return BadRequest("Request is not valid !");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Validation Error !");
+            }
+            User getUserLogin = _service.Login(userLoginRequest.Username, userLoginRequest.Password);
+            if (getUserLogin != null)
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim("Password", user.Password),
-                    new Claim(ClaimTypes.Role, user.Role.Name),
+                    new Claim(ClaimTypes.Name, getUserLogin.Username),
+                    new Claim("Password", getUserLogin.Password),
+                    new Claim(ClaimTypes.Role, getUserLogin.Role.Name),
                 };
 
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
-            {
-                AllowRefresh = true,
-                ExpiresUtc = DateTimeOffset.Now.AddHours(24),
-                IsPersistent = true,
-            };
+                var authProperties = new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    ExpiresUtc = DateTimeOffset.Now.AddHours(24),
+                    IsPersistent = true,
 
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-                
-                return Ok(user);
+                };
+
+                HttpContext.Request.Headers.Add("cookies", CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+
+                return Ok(getUserLogin);
             }
             return NotFound("Username or Password is incorrect !");
         }
@@ -79,14 +80,6 @@ namespace LibraryManagement.Controllers
             CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
         }
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody] string value)
-        // {
-        // }
 
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        // }
     }
 }
