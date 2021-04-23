@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Models;
-using Microsoft.AspNetCore.Authorization;
+using LibraryManagement.Fillter;
 
 namespace LibraryManagement.Controllers
 {
@@ -20,27 +20,27 @@ namespace LibraryManagement.Controllers
             _repo = repo;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpGet]
         public ActionResult<List<BorrowingRequest>> Get()
         {
-            List<BorrowingRequest> list = _repo.ListAll().ToList();
+            List<BorrowingRequest> list = _repo.ListAll().OrderByDescending(x => x.RequestAt).ToList();
 
             return Ok(list);
 
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize("User")]
         [HttpGet("User/{userId}")]
         public ActionResult<List<BorrowingRequest>> GetByUser(int userId)
         {
-            List<BorrowingRequest> list = _repo.ListAll().Where(r => r.UserID == userId).ToList();
+            List<BorrowingRequest> list = _repo.ListAll().Where(r => r.UserID == userId).OrderByDescending(x => x.RequestAt).ToList();
 
             return Ok(list);
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpGet("{id}")]
         public ActionResult<BorrowingRequest> Get(int id)
         {
@@ -53,8 +53,8 @@ namespace LibraryManagement.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles = "User")]
-        [HttpPost("api/Borrowings/RequestBook")]
+        [Authorize("User")]
+        [HttpPost("RequestBook")]
         public ActionResult Post([FromBody] Borrowing borrowing)
         {
             if (borrowing == null)
@@ -77,7 +77,7 @@ namespace LibraryManagement.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpPut]
         public ActionResult Put(Borrowing requestUpdate)
         {

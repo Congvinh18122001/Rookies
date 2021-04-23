@@ -66,3 +66,4 @@ D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.AspNetCore.Json
 D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll
 D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+D:\RookiesActive\C#\LibraryManagement\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using LibraryManagement.Fillter;
 namespace LibraryManagement.Controllers
 {
     [Route("api/Category")]
@@ -35,7 +35,7 @@ namespace LibraryManagement.Controllers
             }
             return NotFound();
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpPost]
         public ActionResult<Category> Post(CategoryVM categoryCreateRequest)
         {
@@ -64,7 +64,7 @@ namespace LibraryManagement.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpPut]
         public ActionResult<Category> Put(CategoryVM categoryEditRequest)
         {
@@ -99,7 +99,7 @@ namespace LibraryManagement.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

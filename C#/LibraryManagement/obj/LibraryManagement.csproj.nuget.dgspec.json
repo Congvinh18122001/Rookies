@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {}
+    "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {}
   },
   "projects": {
-    "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {
+    "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
+        "projectUniqueName": "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
         "projectName": "LibraryManagement",
-        "projectPath": "d:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
+        "projectPath": "D:\\RookiesActive\\C#\\LibraryManagement\\LibraryManagement.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "d:\\RookiesActive\\C#\\LibraryManagement\\obj\\",
+        "outputPath": "D:\\RookiesActive\\C#\\LibraryManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            },
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
               "version": "[2.2.0, )"

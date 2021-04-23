@@ -11,6 +11,6 @@ namespace LibraryManagement.Models
         public int RoleID { get; set; }
         [ForeignKey("RoleID")]
         public virtual Role Role { get; set; }
-
+        
     }
 }

@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using LibraryManagement.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-
+using LibraryManagement.Fillter;
 namespace LibraryManagement.Controllers
 {
     [Route("api/Books")]
@@ -46,7 +45,6 @@ namespace LibraryManagement.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult<Book> Post(BookVM bookCreateRequest)
         {
@@ -69,7 +67,7 @@ namespace LibraryManagement.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpPut]
         public ActionResult<Book> Put(BookVM bookEditRequest)
         {
@@ -97,7 +95,7 @@ namespace LibraryManagement.Controllers
             return Ok(book);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize("Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
