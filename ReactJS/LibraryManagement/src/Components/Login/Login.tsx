@@ -1,6 +1,11 @@
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import "antd/dist/antd.css";
-import { login,logout } from "./Login.service";
+import { Content } from "antd/lib/layout/layout";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { MyGlobalContent } from "../../Context/UseContext";
+import { useAsync } from "../../hooks/useAsync";
+import { login } from "./Login.service";
 
 const layout = {
   labelCol: { span: 4 },
@@ -10,25 +15,32 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 export function Login() {
-
+  const history = useHistory();
+  const {setToken,setRoleID} = useContext(MyGlobalContent); 
+  const [formData, setFormData] = useState<any>({username:"",password:"",});
+  const loginCallback = useCallback(() =>login(formData.username, formData.password),[formData]);
+  const loginData = useAsync(loginCallback);
   // const Demo = () => {
     const onFinish = (values: any) => {
-      login(values.username, values.password);
+       setFormData(values);
     };
 
     const onFinishFailed = (errorInfo: any) => {
-      console.log("Failed:", errorInfo);
+      return message.error(" Error !")
     };
-    const handleLogout = () =>{
-      logout();
-    }
-    
+    useEffect(()=>{
+          if (loginData.status==="success") {
+            setToken(loginData.value.token);
+            setRoleID(loginData.value.user.roleID);
+            message.success(" Login Success !")
+            history.push("/");
+          }
+    },[loginData,history]);
   return (
-    <>
+    <Content style={{padding:'2%'}}>
     <br/>
     <h1>Login</h1>
     <br/>
-    <hr/>
     <Form
       {...layout}
       name="basic"
@@ -62,9 +74,6 @@ export function Login() {
         </Button>
       </Form.Item>
     </Form>
-    <button onClick={()=>handleLogout()} className="primary">
-    logout
-  </button>
-</>
+</Content>
   );
 }

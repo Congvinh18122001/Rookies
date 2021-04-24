@@ -1,43 +1,30 @@
-import axios from "axios";
 import { IBook } from "../../Models/Book";
+import { deleteData ,putData,getData ,postData} from "../Services/axios.service";
 
 export async function add(book: IBook) {
-  return axios
-    .post("https://localhost:5001/api/Books", {
-        "Name": book.name,
-        "Author":book.author,
-        "CategoryID": book.categoryID
-    })
-    .then((res) => {
-      if (res.status===201) {
-        window.location.href="/book";
-      }
-    });
+  const data ={
+    Name: book.name,
+    Author: book.author,
+    CategoryID: book.categoryID,
+  }
+  return postData("https://localhost:5001/api/Books",data );
 }
-export async function getBooks()  {
-  return await axios
-    .get("https://localhost:5001/api/Books")
-    .then((res) =>res.data);
+export async function getBooks() {
+  return getData("https://localhost:5001/api/Books");
 }
 export async function getBook(id: IBook) {
-  return axios
-    .get(`https://localhost:5001/api/Books/${id}`)
-    .then((res) => res.data);
+  return getData(`https://localhost:5001/api/Books/${id}`);
+
 }
 export async function editBook(book: IBook) {
-  return axios
-    .put(`https://localhost:5001/api/Books`, {
-        "ID": book.id,
-      "Name": book.name,
-      "Author":book.author,
-      "CategoryID": book.categoryID
-    })
-    .then((res) => res.status);
+  const data = {
+    ID: book.id,
+    Name: book.name,
+    Author: book.author,
+    CategoryID: book.categoryID
+  }
+  return putData(`https://localhost:5001/api/Books`,data);
 }
 export async function deleteBook(id: IBook) {
-    return axios
-      .delete(`https://localhost:5001/api/Books/${id}`)
-      .then((res) => { if (res.status===200) {
-        window.location.href="/book";
-      }});
-  }
+  return deleteData(`https://localhost:5001/api/Books/${id}`);
+}

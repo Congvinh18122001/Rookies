@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IAccount } from "../../Models/Account";
 
+
 // export var myHeaders = new Headers();
 
 export async function login(username: IAccount, password: IAccount) {
@@ -10,20 +11,17 @@ export async function login(username: IAccount, password: IAccount) {
       "Password": password,
     })
     .then((res) => {
-      if (res.status === 200) {
-       
-        alert("Login success !");
-      } else {
-        alert("Login error !");
-      }
+        localStorage.setItem("token",res.data.token);
+        localStorage.setItem("userInfor",JSON.stringify(res.data.user));
+        return res.data;
     });
 }
 export async function logout() {
   return axios
     .post("https://localhost:5001/api/logout")
     .then((res) => {
-      if (res.status === 200) {
-        
-      }
+         localStorage.removeItem("token");
+         localStorage.removeItem("userInfor");
     });
 }
+

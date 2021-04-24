@@ -1,12 +1,13 @@
 import { Button } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { useAsync } from "../../hooks/useAsync";
 import { deleteCategory, getCategory } from "./category.service";
 
 
 export function DetailsCategory() {
+    const history = useHistory();
     let { id } = useParams<any>();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const getCallBack = useCallback(()=>getCategory(id),[id]);
@@ -20,6 +21,7 @@ export function DetailsCategory() {
   
     const handleOk = () => {
         deleteCategory(id);
+        history.push("/");
     };
   
     const handleCancel = () => {
