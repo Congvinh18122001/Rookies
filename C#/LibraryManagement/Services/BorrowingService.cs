@@ -46,17 +46,10 @@ namespace LibraryManagement.Models
         }
         public BorrowingRequest GetByID(int id)
         {
-            BorrowingRequest borrowingRequest = _request.GetById(id);
+            BorrowingRequest borrowingRequest = _request.GetById(id).Inc;
             if (borrowingRequest != null)
             {
-                List<RequestDetail> RequestDetails = ListDetail(borrowingRequest.ID);
-                User user = getUser(borrowingRequest.UserID);
-                if (RequestDetails.Count > 0 && user != null)
-                {
-                    borrowingRequest.User = user;
-                    borrowingRequest.RequestDetails = RequestDetails;
                     return borrowingRequest;
-                }
             }
             return null;
         }
