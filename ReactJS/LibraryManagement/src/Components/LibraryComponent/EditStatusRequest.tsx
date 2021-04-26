@@ -26,6 +26,8 @@ export function EditStatusRequest() {
     console.log("Failed:", errorInfo);
     history.push("/unauthorized");
   };
+  console.log(value);
+  
   return (
     <>
       <h1>Details Book</h1>
@@ -39,7 +41,16 @@ export function EditStatusRequest() {
             <h3>Book :</h3>
             {value.requestDetails && (
               <Table rowKey="id" dataSource={value.requestDetails}>
-                <Column title="Book Name" dataIndex="book.name" />
+                <Column title="Book ID" render={(text, item: any) => (
+                  <>
+                  {item.book.id}
+                  </>
+                )} />
+                <Column title="Book Name" render={(text, item: any) => (
+                  <>
+                  {item.book.name}
+                  </>
+                )} />
               </Table>
             )}
             <Form
