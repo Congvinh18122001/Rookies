@@ -46,7 +46,7 @@ namespace LibraryManagement.Models
         }
         public BorrowingRequest GetByID(int id)
         {
-            BorrowingRequest borrowingRequest = _request.GetById(id).Inc;
+            BorrowingRequest borrowingRequest = _request.GetById(id);
             if (borrowingRequest != null)
             {
                     return borrowingRequest;
