@@ -16,9 +16,8 @@ const tailLayout = {
 };
 export function CreateCategory() {
   const history = useHistory();
-  if (!useAuthor(1)) {
-    history.push("/unauthorized");
-  }
+  useAuthor(1);
+
   const [formData, setFormData] = useState<any>(null);
   const onFinish = (values: ICategory) => {
     setFormData(values.name);

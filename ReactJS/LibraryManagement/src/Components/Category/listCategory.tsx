@@ -2,16 +2,13 @@ import { getCategories } from "./category.service";
 import { Table, Space } from "antd";
 import Column from "antd/lib/table/Column";
 import { useAsync } from "../../hooks/useAsync";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ICategory } from "../../Models/Category";
 import { useAuthor } from "../../hooks/useCheckAuthor";
 export function ListCategory() {
   const { value, error } = useAsync(getCategories);
-  const history = useHistory();
-  const {isAuth} =useAuthor(1);
-  if (!isAuth) {
-    history.push("/unauthorized");
-  }
+  // const history = useHistory();
+  useAuthor(1);
   return (
     <>
     <h1>Category</h1>

@@ -9,6 +9,6 @@ export function Logout(){
     setToken("");
     setRoleID(0);
     return<>
-         <Redirect to="/"/>
+         <Redirect to="/library"/>
     </>
 }

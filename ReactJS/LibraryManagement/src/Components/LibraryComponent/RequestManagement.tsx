@@ -1,6 +1,6 @@
 import { Space, Table } from "antd";
 import Column from "antd/lib/table/Column";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAsync } from "../../hooks/useAsync";
 import { useAuthor } from "../../hooks/useCheckAuthor";
 import { IBookRequest } from "../../Models/BookRequest";
@@ -9,11 +9,8 @@ import { getBookRequests } from "./cart.service";
 
 
 export function RequestManagement(){
-  const history = useHistory();
-  const {isAuth} =useAuthor(1);
-  if (!isAuth) {
-    history.push("/unauthorized");
-  }
+  useAuthor(1);
+
     const listRequest = useAsync(getBookRequests);
     listRequest && console.log(listRequest.value);
   

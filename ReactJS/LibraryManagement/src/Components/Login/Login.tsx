@@ -32,8 +32,11 @@ export function Login() {
           if (loginData.status==="success") {
             setToken(loginData.value.token);
             setRoleID(loginData.value.user.roleID);
-            message.success(" Login Success !")
-            history.push("/");
+            message.success(" Login Success !");
+  
+
+            history.push("/library");
+            
           }
     },[loginData,history]);
   return (

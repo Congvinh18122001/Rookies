@@ -17,10 +17,8 @@ const tailLayout = {
 };
 export function CreateBook() {
   const history = useHistory();
-  const {isAuth} =useAuthor(1);
-  if (!isAuth) {
-    history.push("/unauthorized");
-  }
+  useAuthor(1);
+
   const [formData, setFormData] = useState<any>(null);
   const { value, error } = useAsync(getCategories);
 

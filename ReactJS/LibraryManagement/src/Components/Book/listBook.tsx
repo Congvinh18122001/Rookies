@@ -12,10 +12,8 @@ import { useAuthor } from "../../hooks/useCheckAuthor";
 
 export function ListBook() {
   const history = useHistory();
-  const {isAuth} =useAuthor(1);
-  if (!isAuth) {
-    history.push("/unauthorized");
-  }
+  useAuthor(1);
+
   const { value, error } = useAsync(getBooks);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [id, setId] = useState<any>();
@@ -35,7 +33,7 @@ export function ListBook() {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const deleteCallback = useCallback(() => deleteBook(deleteId), [deleteId]);
+  const deleteCallback = useCallback(() =>  deleteBook(deleteId), [deleteId]);
   const { status } = useAsync(deleteCallback);
   useEffect(() => {
     if (status === "success") {

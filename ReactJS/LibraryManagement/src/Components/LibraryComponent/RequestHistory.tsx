@@ -1,6 +1,6 @@
 import {  Table } from "antd";
 import Column from "antd/lib/table/Column";
-import {  useHistory } from "react-router-dom";
+// import {  useHistory } from "react-router-dom";
 import { useAsync } from "../../hooks/useAsync";
 import { useAuthor } from "../../hooks/useCheckAuthor";
 import { IBookRequest } from "../../Models/BookRequest";
@@ -8,11 +8,9 @@ import { IBookRequest } from "../../Models/BookRequest";
 import { getBookRequestsByUser } from "./cart.service";
 
 export function RequestHistory() {
-  const history = useHistory();
-  const {isAuth} =useAuthor(2);
-  if (!isAuth) {
-    history.push("/login");
-  }
+  // const history = useHistory();
+  useAuthor(2);
+
   const listRequest = useAsync(getBookRequestsByUser);
   listRequest && console.log(listRequest.value);
 

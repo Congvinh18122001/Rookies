@@ -39,5 +39,5 @@ export function saveRequest(requestID:number,status:number){
         ID:requestID,
         Status:status
     }
-    putData("https://localhost:5001/api/Borrowings/RequestBook",data );
+    putData("https://localhost:5001/api/Borrowings",data );
 }

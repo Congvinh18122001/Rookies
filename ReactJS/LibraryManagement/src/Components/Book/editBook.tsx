@@ -17,10 +17,8 @@ const tailLayout = {
 };
 export function EditBook() {
   const history = useHistory();
-  const {isAuth} =useAuthor(1);
-  if (!isAuth) {
-    history.push("/unauthorized");
-  }
+  useAuthor(1);
+
   const [formData, setFormData] = useState<any>(null);
   let { id } = useParams<any>();
   const categories = useAsync(getCategories);

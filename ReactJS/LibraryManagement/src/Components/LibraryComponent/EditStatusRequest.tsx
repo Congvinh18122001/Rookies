@@ -1,4 +1,4 @@
-import { Form, Button, Select, Table, Space, message } from "antd";
+import { Form, Button, Select, Table, message } from "antd";
 import Column from "antd/lib/table/Column";
 import { useCallback } from "react";
 import { useHistory, useParams } from "react-router";
@@ -9,17 +9,17 @@ import { getBookRequest, saveRequest } from "./cart.service";
 
 export function EditStatusRequest() {
   const history = useHistory();
-  const { isAuth } = useAuthor(1);
-  if (!isAuth) {
-    history.push("/unauthorized");
-  }
+  useAuthor(1);
+
   let { id } = useParams<any>();
   const getCallBack = useCallback(() => getBookRequest(id), [id]);
   const { value, error } = useAsync(getCallBack);
   const onFinish = (values: any) => {
     saveRequest(value.id,values.status);
     message.success("Updated !");
-    history.push("/");
+    if (value) {
+      history.push("/requestManagement");
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
